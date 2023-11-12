@@ -42,7 +42,7 @@ int main( int argc, char *argv[] ){
 
     // print results
     std::cout << std::endl;
-    std::cout << mean_mass << " " << rms_mass << std::endl;
+    std::cout << mean_mass << ' ' << rms_mass << std::endl;
     std::cout << n_events << std::endl;
 
     return 0;
