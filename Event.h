@@ -6,38 +6,50 @@ class Event {
     public:
 
         // constructor
-        Event( int n, float x, float y, float z ); // create an event with number "n"
-                                                // and coordinates x, y, z
+        Event( int n, double x, double y, double z );
+
+        // deleted copy constructor and assignment to prevent unadvertent copy
+        Event           ( const Event& x ) = delete;
+        Event& operator=( const Event& x ) = delete;
+
         // destructor
         ~Event();
 
         // composite object Particle to hold all information for each particle
-        // ( electric charge and x,y,z momentum components )
         struct Particle {
-        ...
+            int charge;
+            double p_x, p_y, p_z;
         };
         typedef const Particle* part_ptr;
 
         // add a particle to the event
-        void add( int charge, float px, float py, float pz );
+        void Add( int charge, double p_x, double p_y, double p_z );
 
         // get event id.
-        int eventNumber() const;
+        int EventNumber() const;
+
         // get decay point coordinates
-        ...
+        double XDecay() const;
+        double YDecay() const;
+        double ZDecay() const;
+
         // get number of particles
-        ...
+        int NParticles() const;
+
         // get particle
-        part_ptr particle( unsigned int i ) const;
+        part_ptr GetParticle( unsigned int i ) const;
+
+        static const unsigned int max_n_part = 10;
 
     private:
 
         // event-specific informations:
-        ... // event id
-        ... // decay point
+        const int ev_number;
+        const double x_decay, y_decay, z_decay;
 
         // particles: number and array of pointers
-        ...
+        int n_particles = 0;
+        Particle** particles;
 
 };
 
