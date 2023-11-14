@@ -3,13 +3,12 @@
 
 #include <cmath>
 
-float mass( const Event& ev );
+double Mass( const Event& ev );
 
 
 // constructor
-MassMean::MassMean( float min, float max ):
-    // initializations
-    ... {
+MassMean::MassMean( double min, double max ):
+    mass_min( min ), mass_max( max ) {
 }
 
 
@@ -21,25 +20,48 @@ MassMean::~MassMean() {
 // add data from a new event
 void MassMean::add( const Event& ev ) {
 
-    // check for mass being in range
-    ...
+    double mass = -1;
 
-    // update number of events and sums
-    ...
+    // compute mass only if there are exactly 2 particles
+    // could check as well if product of charges is -1
+    // would not require Mass() to check it again later
+    if( ev.NParticles() == 2 ) mass = Mass( ev );
+
+    // check if mass is in range
+    // increase counter and update sums
+    if( (mass_min < mass) && (mass < mass_max) ){
+        n_events++;
+        mass_sum += mass;
+        mass_2_sum += pow( mass, 2 );
+        return;
+    }
+    // else do nothing
+    else return;
 
 }
 
 
 // compute mean and rms
 void MassMean::compute() {
-    ...
+
+    mass_avg = mass_sum / n_events;
+    double mass_rms_temp = ( mass_2_sum / n_events ) - pow( mass_avg, 2 );
+    mass_rms = ( mass_rms_temp > 0 ? sqrt(mass_rms_temp) : 0.0 );
+
 }
 
 
 // return number of selected events
-...
+unsigned int MassMean::NEvents() const{
+    return n_events;
+};
 
 
 // return mean and rms
-...
+double MassMean::MassAvg() const{
+    return mass_avg;
+};
+double MassMean::MassRms() const{
+    return mass_rms;
+};
 
