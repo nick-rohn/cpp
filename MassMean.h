@@ -8,7 +8,7 @@ class MassMean {
     public:
 
         // constructor
-        MassMean( float min, float max ); // mass range
+        MassMean( double min, double max ); // mass range
 
         // destructor
         ~MassMean();
@@ -16,21 +16,21 @@ class MassMean {
         void add( const Event& ev );      // add data from a new event
         void compute();                   // compute mean and rms
 
-        ...                               // return number of accepted events
-        ...                               // return mean mass
-        ...                               // return rms  mass
+        unsigned int NEvents() const;     // return number of accepted events
+        double MassAvg() const;           // return mean mass
+        double MassRms() const;           // return rms  mass
 
     private:
 
-        ... // min mass
-        ... // max mass
+        const double mass_min; // min mass
+        const double mass_max; // max mass
 
-        ... // number of accepted events
-        ... // sum of masses
-        ... // sum of masses square
+        unsigned int n_events = 0; // number of accepted events
+        double mass_sum = 0; // sum of masses
+        double mass_2_sum = 0; // sum of masses square
 
-        ... // mean mass
-        ... // rms  mass
+        double mass_avg; // mean mass
+        double mass_rms; // rms  mass
 
 };
 
