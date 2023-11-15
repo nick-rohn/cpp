@@ -1,5 +1,6 @@
 #include "Constants.h"
 
+// could implement also inline (C++17)
 const double Constants::mass_pion    = 0.1395706;   // GeV/c^2
 const double Constants::mass_proton  = 0.938272;    // GeV/c^2
 const double Constants::mass_k0      = 0.497611;    // GeV/c^2

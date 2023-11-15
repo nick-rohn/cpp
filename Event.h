@@ -40,7 +40,7 @@ class Event {
         // get particle
         part_ptr GetParticle( u_int i ) const;
 
-        static const u_int max_n_part = 10;
+        static const u_int max_n_part;
 
     private:
 
@@ -49,7 +49,7 @@ class Event {
         const double x_decay, y_decay, z_decay;
 
         // particles: number and array of pointers
-        u_int n_particles = 0;
+        u_int n_particles;
         Particle** particles;
 
 };

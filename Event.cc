@@ -1,10 +1,16 @@
 #include "Event.h"
 
+// static variables
+const Event::u_int Event::max_n_part = 10;
+
 // constructor
 // could have read in the constructor the number of particles
 // this way we could create already the array with the right size
 Event::Event( u_int id, double x, double y, double z ):
     ev_number( id ), x_decay( x ), y_decay( y ), z_decay( z ){
+    
+    //set counter to 0
+    n_particles = 0;
 
     // allocate a buffer for particle pointers
     particles = new Particle*[max_n_part];

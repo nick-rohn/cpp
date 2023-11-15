@@ -25,9 +25,9 @@ class MassMean {
         const double mass_min; // min mass
         const double mass_max; // max mass
 
-        unsigned int n_events = 0; // number of accepted events
-        double mass_sum = 0; // sum of masses
-        double mass_2_sum = 0; // sum of masses square
+        unsigned int n_events;  // number of accepted events
+        double mass_sum;        // sum of masses
+        double mass_2_sum;      // sum of masses square
 
         double mass_avg; // mean mass
         double mass_rms; // rms  mass
