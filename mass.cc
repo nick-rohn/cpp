@@ -8,7 +8,7 @@
 double Mass( const Event& ev ){
 
     // variables to loop over particles
-    int n = ev.NParticles();
+    Event::u_int n = ev.NParticles();
 
     // positive / negative track counters
     int pos_particles, neg_particles;
@@ -24,7 +24,7 @@ double Mass( const Event& ev ){
     energy_sum_k = energy_sum_l = mass_sum_k = mass_sum_l = 0.0;
 
     // loop over particles - momenta
-    for( int i = 0; i < n; ++i ){
+    for( Event::u_int i = 0; i < n; ++i ){
 
         // get particle pointer
         Event::part_ptr particle = ev.GetParticle(i);

@@ -10,7 +10,7 @@ void dump( const Event& ev ){
               << ev.NParticles();
     
     // write particles
-    for ( int i = 0; i < ev.NParticles(); ++i ){
+    for ( Event::u_int i = 0; i < ev.NParticles(); ++i ){
         Event::part_ptr p = ev.GetParticle(i);
         std::cout << ' '
                   << p->charge << ' '

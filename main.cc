@@ -3,8 +3,7 @@
 #include <cmath>
 
 #include "MassMean.h"
-
-struct Event;
+#include "Event.h"
 
 const Event* read( std::ifstream& file );
 void dump( const Event& ev );
