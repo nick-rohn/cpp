@@ -1,36 +1,29 @@
 #include "Event.h"
 
-// static variables
-const Event::u_int Event::max_n_part = 10;
 
 // constructor
-// could have read in the constructor the number of particles
-// this way we could create already the array with the right size
 Event::Event( u_int id, double x, double y, double z ):
-    ev_number( id ), x_decay( x ), y_decay( y ), z_decay( z ){
+    ev_number( id ), x_decay( x ), y_decay( y ), z_decay( z ) {
     
-    //set counter to 0
-    n_particles = 0;
-
     // allocate a buffer for particle pointers
-    particles = new Particle*[max_n_part];
+    particles.reserve( 10 );
 
 }
 
 
 // destructor
 Event::~Event() {
+
     // delete all the particle pointers
-    for( u_int i = 0; i < n_particles; ++i ) delete particles[i];
-    // delete the pointers array
-    delete[] particles;
+    for( u_int i = 0; i < particles.size(); ++i ) delete particles[i];
+
 }
 
 
 void Event::Add( int charge, double p_x, double p_y, double p_z ) {
 
-    // check for the number of particles, if maximum reached do nothing and return
-    if( n_particles >= max_n_part) return;
+    // don't need this anymore, vector can resize
+//    if( n_particles >= max_n_part) return;
 
     // create the new particle and fill with data
     Particle* p = new Particle;
@@ -39,9 +32,8 @@ void Event::Add( int charge, double p_x, double p_y, double p_z ) {
     p->p_y = p_y;
     p->p_z = p_z;
 
-    // store the new particle pointer in the array and increase counter
-    particles[n_particles] = p;
-    n_particles++;
+    // store the new particle pointer in the vector
+    particles.push_back( p );
 
     return;
 
@@ -69,7 +61,7 @@ double Event::ZDecay() const {
 
 // get number of particles
 Event::u_int Event::NParticles() const {
-    return n_particles;
+    return particles.size();
 }
 
 
@@ -77,8 +69,8 @@ Event::u_int Event::NParticles() const {
 const Event::Particle* Event::GetParticle( u_int i ) const {
 
     // check if index is within the number of particles
-    if( i >= n_particles ) return nullptr;
-    else return particles[i];
+    if( i < particles.size() ) return particles[i];
+    else return nullptr;
 
 }
 
