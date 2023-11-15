@@ -1,34 +1,14 @@
 #include <cmath>
 
-#include "Particle.h"
 #include "Event.h"
+#include "Utilities.h"
+#include "Constants.h"
 
-// compute energy from momentum x,y,z components and invariant mass
-double Energy( double p_x, double p_y, double p_z, double inv_mass ){
-    double p_sum_2 = pow( p_x, 2 ) + pow( p_y, 2 ) + pow( p_z, 2 );
-    double energy = sqrt( p_sum_2 + pow( inv_mass, 2 ) );
-    return energy;
-} 
-
-// compute invariant mass from momentum x,y,z components and energy
-double InvariantMass( double p_x, double p_y, double p_z, double energy){
-    double p_sum_2 = pow( p_x, 2 ) + pow( p_y, 2 ) + pow( p_z, 2 );
-    double inv_mass = sqrt( pow( energy, 2 ) - p_sum_2 );
-    return inv_mass;
-} 
-
-const double mass_pion    = 0.1395706;   // GeV/c^2
-const double mass_proton  = 0.938272;    // GeV/c^2
-const double mass_k0      = 0.497611;    // GeV/c^2
-const double mass_lambda0 = 1.115683;    // GeV/c^2
 
 double Mass( const Event& ev ){
 
-    // retrieve particles in the event
-    typedef const Particle* part_ptr;
-    const part_ptr* particles = ev.particles;
-
     // variables to loop over particles
+    Event::u_int n = ev.NParticles();
 
     // positive / negative track counters
     int pos_particles, neg_particles;
@@ -44,10 +24,10 @@ double Mass( const Event& ev ){
     energy_sum_k = energy_sum_l = mass_sum_k = mass_sum_l = 0.0;
 
     // loop over particles - momenta
-    for( int i = 0; i < ev.n_particles; ++i ){
+    for( Event::u_int i = 0; i < n; ++i ){
 
         // get particle pointer
-        part_ptr particle = particles[i];
+        Event::part_ptr particle = ev.GetParticle(i);
         const double p_x = particle->p_x;
         const double p_y = particle->p_y;
         const double p_z = particle->p_z;
@@ -60,7 +40,7 @@ double Mass( const Event& ev ){
         // update energy sums, for K0 and Lambda0 hypotheses:
 
         // pion mass for K0,
-        double pion_energy = Energy( p_x, p_y, p_z, mass_pion );
+        double pion_energy = Utilities::Energy( p_x, p_y, p_z, Constants::mass_pion );
 
         energy_sum_k += pion_energy;
 
@@ -70,7 +50,7 @@ double Mass( const Event& ev ){
 //        energy_sum_l += Energy( p_x, p_y, p_z,
 //                                      ( particle->charge == 1 ? mass_proton : mass_pion ));
         if( particle->charge == 1 ){
-            energy_sum_l += Energy( p_x, p_y, p_z, mass_proton);
+            energy_sum_l += Utilities::Energy( p_x, p_y, p_z, Constants::mass_proton);
             pos_particles += 1;
         }
         else if( particle->charge == -1 ){
@@ -90,12 +70,12 @@ double Mass( const Event& ev ){
     if( !( (pos_particles == 1) && (neg_particles == 1) ) ) return -1;
 
     // invariant masses for different decay product mass hypotheses
-    double mass_hyp_k = InvariantMass( px_sum, py_sum, pz_sum, energy_sum_k );
-    double mass_hyp_l = InvariantMass( px_sum, py_sum, pz_sum, energy_sum_l );
+    double mass_hyp_k = Utilities::InvariantMass( px_sum, py_sum, pz_sum, energy_sum_k );
+    double mass_hyp_l = Utilities::InvariantMass( px_sum, py_sum, pz_sum, energy_sum_l );
 
     // compare invariant masses with known values and return the nearest one
-    double delta_k = fabs( mass_hyp_k - mass_k0 );
-    double delta_l = fabs( mass_hyp_l - mass_lambda0 );
+    double delta_k = fabs( mass_hyp_k - Constants::mass_k0 );
+    double delta_l = fabs( mass_hyp_l - Constants::mass_lambda0 );
 
     if( delta_k < delta_l ) return mass_hyp_k;
     else return mass_hyp_l;

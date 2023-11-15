@@ -1,22 +1,20 @@
 #include <iostream>
 
-#include "Particle.h"
 #include "Event.h"
 
 void dump( const Event& ev ){
 
     // write event data
-    std::cout << ev.ev_number << ' '
-            << ev.x_decay << ' ' << ev.y_decay << ' ' << ev.z_decay
-            << ' ' << ev.n_particles;
+    std::cout << ev.EventNumber() << ' '
+              << ev.XDecay() << ' ' << ev.YDecay() << ' ' << ev.ZDecay() << ' ' 
+              << ev.NParticles();
     
     // write particles
-    for ( int i = 0; i < ev.n_particles; ++i ){
+    for ( Event::u_int i = 0; i < ev.NParticles(); ++i ){
+        Event::part_ptr p = ev.GetParticle(i);
         std::cout << ' '
-                  << ev.particles[i]->charge << ' '
-                  << ev.particles[i]->p_x << ' '
-                  << ev.particles[i]->p_y << ' '
-                  << ev.particles[i]->p_z;
+                  << p->charge << ' '
+                  << p->p_x << ' ' << p->p_y << ' ' << p->p_z;
     }
 
     std::cout << std::endl;
