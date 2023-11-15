@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <cmath>
 
 #include "MassMean.h"
 #include "Event.h"
