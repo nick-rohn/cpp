@@ -5,14 +5,16 @@
 #include "MassMean.h"
 #include "Event.h"
 
-const Event* read( std::ifstream& file );
+using namespace std;
+
+const Event* read( ifstream& file );
 void dump( const Event& ev );
 
 
 int main( int argc, char *argv[] ){
     // open input file
-    const std::string name = argv[1];
-    std::ifstream file( name );
+    const string name = argv[1];
+    ifstream file( name );
     
     // event
     const Event* ev;
@@ -34,14 +36,14 @@ int main( int argc, char *argv[] ){
     lam0.compute();
 
     // print results
-    std::cout << std::endl;
-    std::cout << "K0:\t\t" << kay0.MassAvg() << ' '
-                           << kay0.MassRms() << '\t'
-                           << kay0.NEvents() << std::endl;
+    cout << endl;
+    cout << "K0:\t\t" << kay0.MassAvg() << ' '
+                      << kay0.MassRms() << '\t'
+                      << kay0.NEvents() << endl;
     
-    std::cout << "Lambda0:\t" << lam0.MassAvg() << ' '
-                              << lam0.MassRms() << '\t'
-                              << lam0.NEvents() << std::endl;
+    cout << "Lambda0:\t" << lam0.MassAvg() << ' '
+                         << lam0.MassRms() << '\t'
+                         << lam0.NEvents() << endl;
 
 
     return 0;
