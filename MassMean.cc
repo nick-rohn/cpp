@@ -8,13 +8,9 @@ double Mass( const Event& ev );
 
 // constructor
 MassMean::MassMean( double min, double max ):
-    mass_min( min ), mass_max( max ) {
-
-        //set cumulative variables to 0
-        n_events = 0;
-        mass_sum = 0;
-        mass_2_sum = 0;
-
+    mass_min( min ), mass_max( max ),
+    //set cumulative variables to 0
+    n_events( 0 ), mass_sum( 0 ), mass_2_sum( 0 ) {
 }
 
 
