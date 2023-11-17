@@ -1,6 +1,8 @@
 #ifndef Event_h
 #define Event_h
 
+#include <vector>
+
 class Event {
 
     public:
@@ -40,7 +42,6 @@ class Event {
         // get particle
         part_ptr GetParticle( u_int i ) const;
 
-        static const u_int max_n_part;
 
     private:
 
@@ -48,9 +49,8 @@ class Event {
         const u_int ev_number;
         const double x_decay, y_decay, z_decay;
 
-        // particles: number and array of pointers
-        u_int n_particles;
-        Particle** particles;
+        // particles: vector of pointers
+        std::vector<Particle*> particles;
 
 };
 
