@@ -2,6 +2,7 @@
 #define constants_h
 
 class Constants{
+    
     public:
         
         static const double mass_pion;

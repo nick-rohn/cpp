@@ -1,7 +1,9 @@
 #include "MassMean.h"
-#include "Event.h"
 
 #include <cmath>
+
+#include "Event.h"
+
 
 double Mass( const Event& ev );
 

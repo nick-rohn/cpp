@@ -1,10 +1,34 @@
+#include "EventDump.h"
+
 #include <iostream>
 
 #include "Event.h"
 
 using namespace std;
 
-void dump( const Event& ev ){
+
+EventDump::EventDump() {
+}
+
+
+EventDump::~EventDump() {
+}
+
+
+// function to be called at execution start
+void EventDump::BeginJob() {
+  return;
+}
+
+
+// function to be called at execution end
+void EventDump::EndJob() {
+  return;
+}
+
+
+// function to be called for each event
+void EventDump::Process( const Event& ev ) {
 
     // write event data
     cout << ev.EventNumber() << ' '
@@ -24,3 +48,4 @@ void dump( const Event& ev ){
     return;
 
 }
+
