@@ -1,9 +1,17 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
+#include <vector>
 
-#include "MassMean.h"
 #include "Event.h"
+#include "EventSource.h"
+#include "EventSim.h"
+#include "EventReadFromFile.h"
+#include "MassMean.h"
+#include "AnalysisSteering.h"
+#include "EventDump.h"
+#include "ParticleMass.h"
 
 using namespace std;
 
@@ -12,40 +20,57 @@ void dump( const Event& ev );
 
 
 int main( int argc, char *argv[] ){
-    // open input file
-    const string name = argv[1];
-    ifstream file( name );
-    
-    // event
-    const Event* ev;
 
-    // K0 and Lambda0 objects
-    MassMean kay0( 0.495, 0.500 );
-    MassMean lam0( 1.115, 1.116 );
+    // create data source
+    EventSource* es;
+    const string type = argv[1];
+    if( type == "input" ){
+        const string name = argv[2];
+        es = new EventReadFromFile( name );
+    }
+    else
+    if( type == "sim" ){
+        const string nevt = argv[2];
+        const string seed = ( argc > 3 ? argv[3] : "1" );
+        stringstream sstr;
+        unsigned int n;
+        sstr.str( nevt );
+        sstr >> n;
+        sstr.clear();
+        unsigned int s;
+        sstr.str( seed );
+        sstr >> s;
+        es = new EventSim( n, s );
+    }
+    else{
+        cout << "invalid keyword" << endl;
+        return 0;
+    }
+
+    // list of analyzers
+    vector<AnalysisSteering*> an_list;
+    // event dumping object
+    an_list.push_back( new EventDump );
+    // particle identifier
+    an_list.push_back( new ParticleMass );
+
+    // initialize analyzers
+    for( auto as: an_list ) as->BeginJob();
 
     // loop over events
-    while( (ev = read( file )) != nullptr ){
-        dump( *ev );
-        kay0.add( *ev );
-        lam0.add( *ev );
+    const Event* ev;
+    while( (ev = es->get()) != nullptr ){
+        for( auto as: an_list ) as->Process( *ev );
         delete ev;
     }
 
-    // compute results
-    kay0.compute();
-    lam0.compute();
+    // finalize all analyzers
+    for( auto as: an_list ) as->EndJob();
 
-    // print results
-    cout << endl;
-    cout << "K0:\t\t" << kay0.MassAvg() << ' '
-                      << kay0.MassRms() << '\t'
-                      << kay0.NEvents() << endl;
+    // clear allocated space
+    delete es;
+    for( auto as: an_list ) delete as;
     
-    cout << "Lambda0:\t" << lam0.MassAvg() << ' '
-                         << lam0.MassRms() << '\t'
-                         << lam0.NEvents() << endl;
-
-
     return 0;
     
 }
