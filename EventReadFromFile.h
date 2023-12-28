@@ -27,7 +27,7 @@ class EventReadFromFile: public EventSource {
         const Event* get() override;
 
         // input file
-        std::ifstream file;
+        std::ifstream* file;
 
         // read and event
         const Event* ReadFile();
