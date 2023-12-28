@@ -52,6 +52,8 @@ void MassMean::compute() {
     double mass_rms_temp = ( mass_2_sum / n_events ) - pow( mass_avg, 2 );
     mass_rms = ( mass_rms_temp > 0 ? sqrt(mass_rms_temp) : 0.0 );
 
+    return;
+
 }
 
 

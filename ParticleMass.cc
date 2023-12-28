@@ -11,6 +11,7 @@ ParticleMass::ParticleMass() {
 }
 
 ParticleMass::~ParticleMass() {
+    for( MassMean* part: p_list ) delete part;
 }
 
 
@@ -42,6 +43,9 @@ void ParticleMass::EndJob() {
              << particle->MassRms() << '\t'
              << particle->NEvents() << endl;
     }
+
+    return;
+
 }
 
 
@@ -49,4 +53,7 @@ void ParticleMass::EndJob() {
 void ParticleMass::Process( const Event& ev ) {
   // loop over particles and pass event to each of them
   for( MassMean* particle: p_list ) particle->add( ev );
+
+  return;
+
 }
