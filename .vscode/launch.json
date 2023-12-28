@@ -5,7 +5,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${fileDirname}/main",
-        "args": ["${fileDirname}/particle_events.txt"],
+        "args": ["input", "${fileDirname}/particle_events.txt"],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",
         "environment": [],
