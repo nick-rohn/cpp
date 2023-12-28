@@ -1,5 +1,6 @@
 #include "Event.h"
 
+#include <vector>
 
 // constructor
 Event::Event( u_int id, double x, double y, double z ):

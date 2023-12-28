@@ -1,7 +1,6 @@
 #ifndef EventReadFromFile_h
 #define EventReadFromFile_h
 
-#include <iostream>
 #include <fstream>
 #include <string>
 

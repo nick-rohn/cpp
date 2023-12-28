@@ -1,9 +1,11 @@
 #include "EventDump.h"
-#include "Event.h"
 
 #include <iostream>
 
+#include "Event.h"
+
 using namespace std;
+
 
 EventDump::EventDump() {
 }

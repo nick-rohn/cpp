@@ -1,9 +1,9 @@
+#include "EventSim.h"
 
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
 
-#include "EventSim.h"
 #include "Event.h"
 
 using namespace std;

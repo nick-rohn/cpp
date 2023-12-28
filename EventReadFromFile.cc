@@ -1,12 +1,12 @@
 #include "EventReadFromFile.h"
 
-#include "Event.h"
-
-#include <iostream>
 #include <fstream>
 #include <string>
 
+#include "Event.h"
+
 using namespace std;
+
 
 // read data from file "name"
 EventReadFromFile::EventReadFromFile( const string& name ) {

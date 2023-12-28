@@ -1,6 +1,6 @@
-#include <cmath>
-
 #include "Utilities.h"
+
+#include <cmath>
 
 // compute energy from momentum x,y,z components and invariant mass
 double Utilities::Energy( double p_x, double p_y, double p_z, double inv_mass ){

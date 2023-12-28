@@ -1,23 +1,17 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <sstream>
 #include <vector>
 
 #include "Event.h"
 #include "EventSource.h"
-#include "EventSim.h"
 #include "EventReadFromFile.h"
-#include "MassMean.h"
+#include "EventSim.h"
 #include "AnalysisSteering.h"
 #include "EventDump.h"
 #include "ParticleMass.h"
 
 using namespace std;
-
-const Event* read( ifstream& file );
-void dump( const Event& ev );
-
 
 int main( int argc, char *argv[] ){
 

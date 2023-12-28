@@ -1,6 +1,7 @@
 #include "ParticleMass.h"
 
 #include <iostream>
+#include <vector>
 
 #include "MassMean.h"
 
