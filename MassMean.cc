@@ -22,7 +22,7 @@ MassMean::~MassMean() {
 
 
 // add data from a new event
-void MassMean::add( const Event& ev ) {
+bool MassMean::add( const Event& ev ) {
 
     double mass = -1;
 
@@ -31,16 +31,16 @@ void MassMean::add( const Event& ev ) {
     // would not require Mass() to check it again later
     if( ev.NParticles() == 2 ) mass = Mass( ev );
 
-    // check if mass is in range
+    // check if mass is in range, and return true
     // increase counter and update sums
     if( (mass_min < mass) && (mass < mass_max) ){
         n_events++;
         mass_sum += mass;
         mass_2_sum += pow( mass, 2 );
-        return;
+        return true;
     }
-    // else do nothing
-    else return;
+    // else return false
+    else return false;
 
 }
 
@@ -51,6 +51,8 @@ void MassMean::compute() {
     mass_avg = mass_sum / n_events;
     double mass_rms_temp = ( mass_2_sum / n_events ) - pow( mass_avg, 2 );
     mass_rms = ( mass_rms_temp > 0 ? sqrt(mass_rms_temp) : 0.0 );
+
+    return;
 
 }
 
