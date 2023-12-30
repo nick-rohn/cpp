@@ -46,8 +46,9 @@ void ParticleMass::EndJob() {
     // save current working area
     TDirectory* currentDir = gDirectory;
     // open histogram file
-    TFile* file = new TFile( "particles_hist.root", "CREATE" );
+    TFile* file = new TFile( "particles_hist.root", "RECREATE" );
 
+    cout << endl;
     // loop over elements
     for( Particle* particle: p_list ) {
 
@@ -55,15 +56,17 @@ void ParticleMass::EndJob() {
         MassMean* data = particle->data;
         data->compute();
         // print results
-        cout << endl;
-        cout << data->MassAvg() << ' '
+        cout << particle->name  << '\t'
+             << data->MassAvg() << ' '
              << data->MassRms() << '\t'
-             << data->NEvents() << endl;
+             << data->NEvents()
+             << endl;
 
         // save histogram
         particle->hist->Write();
         
     }
+    cout << endl;
     
     // close file
     file->Close();
