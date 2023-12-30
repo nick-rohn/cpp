@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "EventSource.h"
 #include "AnalysisInfo.h"
 #include "EventReadFromFile.h"
 #include "EventSim.h"

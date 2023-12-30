@@ -1,8 +1,12 @@
 #include "AnalysisFactory.h"
 
 #include <iostream>
+#include <string>
+#include <vector>
+#include <map>
 
 #include "AnalysisInfo.h"
+#include "AnalysisSteering.h"
 
 using namespace std;
 
