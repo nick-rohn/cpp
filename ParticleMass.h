@@ -2,10 +2,12 @@
 #define ParticleMass_h
 
 #include <vector>
+#include <string>
 
 #include "AnalysisSteering.h"
 
 class MassMean;
+class TH1F;
 
 class ParticleMass: public AnalysisSteering {
 
@@ -27,8 +29,17 @@ class ParticleMass: public AnalysisSteering {
 
     private:
 
+        struct Particle{
+            std::string name;   // particle name
+            MassMean*   data;   // stored data
+            TH1F*       hist;   //graph
+        };
+        
         // list of particles
-        std::vector<MassMean*> p_list;
+        std::vector<Particle*> p_list;
+
+        // create particle structs
+        void PCreate( const std::string& name, double min_mass, double max_mass );
 
 };
 

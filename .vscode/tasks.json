@@ -6,12 +6,14 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-fdiagnostics-color=always",
-                "-Wall",
                 "-g",
-                "*.cc",
+                "-Wall",
                 "-I.",
+                "`root-config --cflags`",
                 "-o",
                 "${fileDirname}/main",
+                "*.cc",
+                "`root-config --libs`"
             ],
             "options": {
                 "cwd": "${fileDirname}"
