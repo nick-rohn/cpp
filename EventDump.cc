@@ -3,11 +3,32 @@
 #include <iostream>
 
 #include "Event.h"
+#include "AnalysisFactory.h"
+#include "AnalysisSteering.h"
+#include "AnalysisInfo.h"
 
 using namespace std;
 
+// concrete factory to create an EventDump analyzer
+class EventDumpFactory: public AnalysisFactory::AbsFactory{
+    public:
+        // assign name "dump" to analyzer and factory
+        EventDumpFactory(): AnalysisFactory::AbsFactory( "dump" ){}
+        // function to create an EventDump when builder is run
+        AnalysisSteering* create( const AnalysisInfo* info ) override {
+            return new EventDump( info );
+        }
+};
+// create global EventDumpFactory to be registered in the AnalysisFactory map
+// if called by arg, the AnalysisFactory::create will run the EventDumpFactory::create
+// and an instance of EventDump will be added to the analysis log
+static EventDumpFactory ed;
 
-EventDump::EventDump() {
+
+
+
+EventDump::EventDump( const AnalysisInfo* info ):
+    AnalysisSteering( info ){
 }
 
 

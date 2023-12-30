@@ -4,12 +4,13 @@
 #include "AnalysisSteering.h"
 
 class Event;
+class AnalysisInfo;
 
 class EventDump: public AnalysisSteering {
 
     public:
 
-        EventDump();
+        EventDump( const AnalysisInfo* info );
         // deleted copy constructor and assignment to prevent unadvertent copy
         EventDump           ( const EventDump& x ) = delete;
         EventDump& operator=( const EventDump& x ) = delete;
