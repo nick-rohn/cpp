@@ -1,6 +1,7 @@
 #include "AnalysisSteering.h"
 
-AnalysisSteering::AnalysisSteering() {
+AnalysisSteering::AnalysisSteering( const AnalysisInfo* info ):
+    aInfo( info ) {
 }
 
 
