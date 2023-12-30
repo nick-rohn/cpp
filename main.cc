@@ -1,14 +1,11 @@
-#include <string>
-#include <sstream>
 #include <vector>
 
 #include "AnalysisInfo.h"
-#include "SourceFactory.h"
-#include "Event.h"
 #include "EventSource.h"
+#include "SourceFactory.h"
 #include "AnalysisSteering.h"
-#include "EventDump.h"
-#include "ParticleMass.h"
+#include "AnalysisFactory.h"
+#include "Event.h"
 
 using namespace std;
 
@@ -21,11 +18,7 @@ int main( int argc, char *argv[] ){
     EventSource* es = SourceFactory::create( info );
 
     // list of analyzers
-    vector<AnalysisSteering*> an_list;
-    // event dumping object
-    an_list.push_back( new EventDump );
-    // particle identifier
-    an_list.push_back( new ParticleMass );
+    vector<AnalysisSteering*> an_list = AnalysisFactory::create( info );
 
     // initialize analyzers
     for( auto as: an_list ) as->BeginJob();

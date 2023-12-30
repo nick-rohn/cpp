@@ -2,18 +2,41 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 #include "TH1F.h"
 #include "TFile.h"
 
 #include "Event.h"
 #include "MassMean.h"
+#include "AnalysisSteering.h"
+#include "AnalysisInfo.h"
+#include "AnalysisFactory.h"
 
 double Mass( const Event& ev );
 
 using namespace std;
 
-ParticleMass::ParticleMass() {
+
+// concrete factory to create an ParticleMass analyzer
+class ParticleMassFactory: public AnalysisFactory::AbsFactory{
+    public:
+        // assign name "plot" to analyzer and factory
+        ParticleMassFactory(): AnalysisFactory::AbsFactory( "plot" ){}
+        // function to create an ParticleMass when builder is run
+        AnalysisSteering* create( const AnalysisInfo* info ) override {
+            return new ParticleMass( info );
+        }
+};
+// create global ParticleMassFactory to be registered in the AnalysisFactory map
+// if called by arg, the AnalysisFactory::create will run the ParticleMassFactory::create
+// and an instance of ParticleMass will be added to the analysis log
+static ParticleMassFactory pm;
+
+
+
+ParticleMass::ParticleMass( const AnalysisInfo* info ):
+    AnalysisSteering( info ) {
 }
 
 ParticleMass::~ParticleMass() {
@@ -46,7 +69,7 @@ void ParticleMass::EndJob() {
     // save current working area
     TDirectory* currentDir = gDirectory;
     // open histogram file
-    TFile* file = new TFile( "particles_hist.root", "RECREATE" );
+    TFile* file = new TFile( aInfo->value( "plot" ).c_str(), "RECREATE" );
 
     cout << endl;
     // loop over elements

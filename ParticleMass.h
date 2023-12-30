@@ -5,6 +5,7 @@
 #include <string>
 
 #include "AnalysisSteering.h"
+#include "AnalysisInfo.h"
 
 class MassMean;
 class TH1F;
@@ -13,7 +14,7 @@ class ParticleMass: public AnalysisSteering {
 
     public:
 
-        ParticleMass();
+        ParticleMass( const AnalysisInfo* info );
         // deleted copy constructor and assignment to prevent unadvertent copy
         ParticleMass           ( const ParticleMass& x ) = delete;
         ParticleMass& operator=( const ParticleMass& x ) = delete;

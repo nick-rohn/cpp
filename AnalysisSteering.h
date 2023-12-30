@@ -1,13 +1,14 @@
 #ifndef AnalysisSteering_h
 #define AnalysisSteering_h
 
+class AnalysisInfo;
 class Event;
 
 class AnalysisSteering {
 
     public:
 
-        AnalysisSteering();
+        AnalysisSteering( const AnalysisInfo* info );
         // deleted copy constructor and assignment to prevent unadvertent copy
         AnalysisSteering           ( const AnalysisSteering& x ) = delete;
         AnalysisSteering& operator=( const AnalysisSteering& x ) = delete;
@@ -20,6 +21,10 @@ class AnalysisSteering {
         virtual void   EndJob() = 0;
         // function to be called for each event
         virtual void Process( const Event& ev ) = 0;
+
+    protected:
+
+        const AnalysisInfo* aInfo;
 
 };
 
