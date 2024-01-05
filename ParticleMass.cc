@@ -120,7 +120,7 @@ void ParticleMass::update( const Event& ev ) {
 // create particle structs
 void ParticleMass::PCreate( const std::string& name, double min_mass, double max_mass ){
     
-    std::string title = "mass " + name;
+    std::string title = "mass_" + name;
     // convert string for histogram title
     const char* hist_name = title.c_str();
 
