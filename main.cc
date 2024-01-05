@@ -24,18 +24,14 @@ int main( int argc, char *argv[] ){
     for( auto as: an_list ) as->BeginJob();
 
     // loop over events
-    const Event* ev;
-    while( (ev = es->get()) != nullptr ){
-        for( auto as: an_list ) as->Process( *ev );
-        delete ev;
-    }
+    es->run();
 
     // finalize all analyzers
     for( auto as: an_list ) as->EndJob();
 
     // clear allocated space
-    delete es;
     for( auto as: an_list ) delete as;
+    delete es;
     
     return 0;
     
