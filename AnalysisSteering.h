@@ -19,8 +19,6 @@ class AnalysisSteering {
         virtual void BeginJob() = 0;
         // function to be called at execution end
         virtual void   EndJob() = 0;
-        // function to be called for each event
-        virtual void Process( const Event& ev ) = 0;
 
     protected:
 

@@ -14,6 +14,11 @@ class EventSource {
 
         virtual ~EventSource();
 
+        // loop over events
+        virtual void run();
+
+    private:
+
         // get an event
         virtual const Event* get() = 0;
 

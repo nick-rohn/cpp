@@ -3,10 +3,7 @@
 #include <cmath>
 
 #include "Event.h"
-
-
-double Mass( const Event& ev );
-
+#include "ParticleReco.h"
 
 // constructor
 MassMean::MassMean( double min, double max ):
@@ -24,12 +21,9 @@ MassMean::~MassMean() {
 // add data from a new event
 bool MassMean::add( const Event& ev ) {
 
-    double mass = -1;
-
-    // compute mass only if there are exactly 2 particles
-    // could check as well if product of charges is -1
-    // would not require Mass() to check it again later
-    if( ev.NParticles() == 2 ) mass = Mass( ev );
+    // get ParticleReco instance to compute mass
+    static ParticleReco* particle_reco = ParticleReco::instance();
+    double mass = particle_reco->Mass();
 
     // check if mass is in range, and return true
     // increase counter and update sums

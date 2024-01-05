@@ -12,8 +12,8 @@
 #include "AnalysisSteering.h"
 #include "AnalysisInfo.h"
 #include "AnalysisFactory.h"
-
-double Mass( const Event& ev );
+#include "util/include/ActiveObserver.h"
+#include "ParticleReco.h"
 
 using namespace std;
 
@@ -103,22 +103,26 @@ void ParticleMass::EndJob() {
 
 
 // function to be called for each event
-void ParticleMass::Process( const Event& ev ) {
+void ParticleMass::update( const Event& ev ) {
+    
+    // get ParticleReco instance to compute mass
+    static ParticleReco* particle_reco = ParticleReco::instance();
 
     // loop over particles and pass event to each of them
     // fill histogram with accepted events
     for( Particle* particle: p_list )
         if( particle->data->add( ev ) )
-            particle->hist->Fill( Mass( ev ) );
+            particle->hist->Fill( particle_reco->Mass() );
 
     return;
 }
 
 // create particle structs
 void ParticleMass::PCreate( const std::string& name, double min_mass, double max_mass ){
-
+    
+    std::string title = "mass " + name;
     // convert string for histogram title
-    const char* hist_name = name.c_str();
+    const char* hist_name = title.c_str();
 
     // create particle struct and set contents
     Particle* part = new Particle;

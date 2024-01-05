@@ -1,11 +1,33 @@
+#include "ParticleReco.h"
+
+#include <iostream>
 #include <cmath>
 
 #include "Event.h"
 #include "Utilities.h"
 #include "Constants.h"
 
+using namespace std;
 
-double Mass( const Event& ev ){
+
+// constructor
+ParticleReco::ParticleReco() {
+}
+
+
+// destructor
+ParticleReco::~ParticleReco() {
+}
+
+
+// recompute tag informations for new event
+void ParticleReco::update( const Event& ev ) {
+
+    // set default quantities
+    type   = unknown;
+    energy = -1.0;
+    mass   = -1.0;
+
 
     // variables to loop over particles
     Event::u_int n = ev.NParticles();
@@ -61,24 +83,59 @@ double Mass( const Event& ev ){
         
         // exclude cases with particles with unexpected charge
         // charge is int, so no risk with '=='
-        else return -1;
+        else return;
 
     }
 
     // check for exactly one positive and one negative track
-    // otherwise return negative (unphysical) invariant mass
-    if( !( (pos_particles == 1) && (neg_particles == 1) ) ) return -1;
+    // otherwise leave unknown type
+    if( !( (pos_particles == 1) && (neg_particles == 1) ) ) return;
 
     // invariant masses for different decay product mass hypotheses
     double mass_hyp_k = Utilities::InvariantMass( px_sum, py_sum, pz_sum, energy_sum_k );
     double mass_hyp_l = Utilities::InvariantMass( px_sum, py_sum, pz_sum, energy_sum_l );
 
-    // compare invariant masses with known values and return the nearest one
+    // compare invariant masses with known values and set final values
+    // ( type, energy and mass )
     double delta_k = fabs( mass_hyp_k - Constants::mass_k0 );
     double delta_l = fabs( mass_hyp_l - Constants::mass_lambda0 );
 
-    if( delta_k < delta_l ) return mass_hyp_k;
-    else return mass_hyp_l;
+    if( delta_k < delta_l ){
+        type = K0;
+        energy = energy_sum_k;
+        mass = mass_hyp_k;
+    }
+    else{
+        type = Lambda0;
+        energy = energy_sum_l;
+        mass = mass_hyp_l;
+    }
+
+    return;
 
 }
 
+
+// return particle type
+ParticleReco::ParticleType ParticleReco::Type(){
+    // check for new event and return result
+    check();
+    return type;
+}
+
+
+// return particle energy
+double ParticleReco::Energy(){
+    // check for new event and return result
+    check();
+    return energy;
+
+}
+
+
+// return particle mass
+double ParticleReco::Mass(){
+    // check for new event and return result
+    check();
+    return mass;
+}

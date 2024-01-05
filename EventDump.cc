@@ -6,6 +6,7 @@
 #include "AnalysisFactory.h"
 #include "AnalysisSteering.h"
 #include "AnalysisInfo.h"
+#include "util/include/ActiveObserver.h"
 
 using namespace std;
 
@@ -49,7 +50,7 @@ void EventDump::EndJob() {
 
 
 // function to be called for each event
-void EventDump::Process( const Event& ev ) {
+void EventDump::update( const Event& ev ) {
 
     // write event data
     cout << ev.EventNumber() << ' '
