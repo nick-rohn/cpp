@@ -6,6 +6,8 @@
 #include "Event.h"
 #include "Utilities.h"
 #include "Constants.h"
+#include "util/include/Singleton.h"
+#include "util/include/LazyObserver.h"
 
 using namespace std;
 
