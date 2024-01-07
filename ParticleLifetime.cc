@@ -118,8 +118,8 @@ void ParticleLifetime::update( const Event& ev ) {
 
 // create particle structs
 void ParticleLifetime::PCreate( const std::string& name,
-                                double min_mass, double max_mass,
-                                double min_time, double max_time ){
+                                double mass_min, double mass_max,
+                                double time_min, double time_max ){
     
     std::string title = "time_" + name;
     // convert string for histogram title
@@ -128,8 +128,8 @@ void ParticleLifetime::PCreate( const std::string& name,
     // create particle struct and set contents
     Particle* part = new Particle;
     part->name = name;
-    part->data = new LifetimeFit( min_mass, max_mass );
-    part->hist = new TH1F( hist_name, hist_name, 100, min_time, max_time );
+    part->data = new LifetimeFit( mass_min, mass_max );
+    part->hist = new TH1F( hist_name, hist_name, 100, time_min, time_max );
 
     p_list.push_back( part );
 

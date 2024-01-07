@@ -43,8 +43,8 @@ class ParticleLifetime: public AnalysisSteering,
 
         // create particle structs
         void PCreate( const std::string& name,
-                      double min_mass, double max_mass,
-                      double min_time, double max_time );
+                      double mass_min, double mass_max,
+                      double time_min, double time_max );
 
 };
 
