@@ -8,6 +8,8 @@ class AnalysisInfo {
 
     public:
 
+        enum AnalysisStatus { begin, end };
+
         AnalysisInfo( int argc, char* argv[] );
         // deleted copy constructor and assignment to prevent unadvertent copy
         AnalysisInfo           ( const AnalysisInfo& x ) = delete;

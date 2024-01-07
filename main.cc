@@ -3,7 +3,7 @@
 #include "AnalysisInfo.h"
 #include "EventSource.h"
 #include "SourceFactory.h"
-#include "AnalysisSteering.h"
+#include "util/include/Dispatcher.h"
 #include "AnalysisFactory.h"
 
 using namespace std;
@@ -16,22 +16,20 @@ int main( int argc, char *argv[] ){
     // create data source
     EventSource* es = SourceFactory::create( info );
 
-    // list of analyzers
-    vector<AnalysisSteering*> an_list = AnalysisFactory::create( info );
+    // create a list of analyzers
+    AnalysisFactory::create( info );
 
-    // initialize analyzers
-    for( auto as: an_list ) as->BeginJob();
+    // initialize all analyzers
+    Dispatcher<AnalysisInfo::AnalysisStatus>::notify( AnalysisInfo::begin );
 
     // loop over events
     es->run();
 
     // finalize all analyzers
-    for( auto as: an_list ) as->EndJob();
+    Dispatcher<AnalysisInfo::AnalysisStatus>::notify( AnalysisInfo::end );
 
-    // clear allocated space
-    for( auto as: an_list ) delete as;
     delete es;
-    
+
     return 0;
-    
+
 }

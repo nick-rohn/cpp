@@ -1,10 +1,12 @@
 #ifndef AnalysisSteering_h
 #define AnalysisSteering_h
 
-class AnalysisInfo;
+#include "AnalysisInfo.h"
+#include "util/include/ActiveObserver.h"
+
 class Event;
 
-class AnalysisSteering {
+class AnalysisSteering: public ActiveObserver<AnalysisInfo::AnalysisStatus> {
 
     public:
 
@@ -13,16 +15,21 @@ class AnalysisSteering {
         AnalysisSteering           ( const AnalysisSteering& x ) = delete;
         AnalysisSteering& operator=( const AnalysisSteering& x ) = delete;
 
-        virtual ~AnalysisSteering();
+        ~AnalysisSteering() override;
+
+        // function to be called at execution start / end
+        void update( const AnalysisInfo::AnalysisStatus& status ) override;
+
+    protected:
+
+        const AnalysisInfo* aInfo;
+
+    private:
 
         // function to be called at execution start
         virtual void BeginJob() = 0;
         // function to be called at execution end
         virtual void   EndJob() = 0;
-
-    protected:
-
-        const AnalysisInfo* aInfo;
 
 };
 
