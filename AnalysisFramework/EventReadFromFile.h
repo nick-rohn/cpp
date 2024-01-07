@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 
-#include "EventSource.h"
+#include "AnalysisFramework/EventSource.h"
 
 class Event;
 

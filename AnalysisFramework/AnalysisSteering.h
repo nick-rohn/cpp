@@ -1,7 +1,7 @@
 #ifndef AnalysisSteering_h
 #define AnalysisSteering_h
 
-#include "AnalysisInfo.h"
+#include "AnalysisFramework/AnalysisInfo.h"
 #include "util/include/ActiveObserver.h"
 
 class Event;

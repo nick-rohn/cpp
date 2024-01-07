@@ -1,10 +1,10 @@
 #include <vector>
 
-#include "AnalysisInfo.h"
-#include "EventSource.h"
-#include "SourceFactory.h"
+#include "AnalysisFramework/AnalysisInfo.h"
+#include "AnalysisFramework/EventSource.h"
+#include "AnalysisFramework/SourceFactory.h"
 #include "util/include/Dispatcher.h"
-#include "AnalysisFactory.h"
+#include "AnalysisFramework/AnalysisFactory.h"
 
 using namespace std;
 

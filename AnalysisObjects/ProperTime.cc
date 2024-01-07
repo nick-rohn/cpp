@@ -1,12 +1,12 @@
-#include "ProperTime.h"
+#include "AnalysisObjects/ProperTime.h"
 
 #include <iostream>
 #include <cmath>
 
-#include "Event.h"
-#include "Utilities.h"
-#include "Constants.h"
-#include "ParticleReco.h"
+#include "AnalysisFramework/Event.h"
+#include "AnalysisUtilities/Utilities.h"
+#include "AnalysisUtilities/Constants.h"
+#include "AnalysisObjects/ParticleReco.h"
 #include "util/include/Singleton.h"
 #include "util/include/LazyObserver.h"
 

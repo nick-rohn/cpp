@@ -1,4 +1,4 @@
-#include "ParticleLifetime.h"
+#include "AnalysisPlugins/ParticleLifetime.h"
 
 #include <iostream>
 #include <fstream>
@@ -8,12 +8,12 @@
 #include "TH1F.h"
 #include "TFile.h"
 
-#include "Event.h"
-#include "LifetimeFit.h"
-#include "AnalysisSteering.h"
-#include "AnalysisInfo.h"
-#include "AnalysisFactory.h"
-#include "ProperTime.h"
+#include "AnalysisFramework/Event.h"
+#include "AnalysisFramework/AnalysisSteering.h"
+#include "AnalysisFramework/AnalysisInfo.h"
+#include "AnalysisFramework/AnalysisFactory.h"
+#include "AnalysisObjects/LifetimeFit.h"
+#include "AnalysisObjects/ProperTime.h"
 #include "util/include/ActiveObserver.h"
 #include "util/include/TFileProxy.h"
 

@@ -1,12 +1,12 @@
-#include "LifetimeFit.h"
+#include "AnalysisObjects/LifetimeFit.h"
 
 #include <cmath>
 #include <vector>
 
-#include "Event.h"
-#include "ParticleReco.h"
-#include "ProperTime.h"
-#include "QuadraticFitter.h"
+#include "AnalysisFramework/Event.h"
+#include "AnalysisObjects/ParticleReco.h"
+#include "AnalysisObjects/ProperTime.h"
+#include "AnalysisUtilities/QuadraticFitter.h"
 
 // constructor
 LifetimeFit::LifetimeFit( double mass_min, double mass_max,
