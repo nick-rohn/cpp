@@ -1,6 +1,7 @@
 #include "ParticleLifetime.h"
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <string>
 
@@ -54,10 +55,16 @@ void ParticleLifetime::BeginJob() {
 
     // create list of particles
     p_list.reserve( 2 );
-    // K0
-    PCreate( "K0"     , 0.495, 0.500, 10.0,  500.0 );
-    // Lambda0
-    PCreate( "Lambda0", 1.115, 1.116, 10.0, 1000.0 );
+    ifstream file( aInfo->value( "fit" ).c_str() );
+    string name;
+    double mass_min, mass_max;
+    double time_min, time_max;
+    double scan_min,  scan_max;
+    double scan_step;
+    while ( file >> name >> mass_min >> mass_max >> time_min >> time_max
+                         >> scan_min >> scan_max >> scan_step )
+        PCreate(    name,   mass_min,   mass_max,   time_min,   time_max,
+                            scan_min,   scan_max, scan_step );
 
     return;
 
@@ -80,7 +87,9 @@ void ParticleLifetime::EndJob() {
         LifetimeFit* data = particle->data;
         data->compute();
         // print results
-        cout << particle->name  << '\t'
+        cout << particle->name        << '\t'
+             << data->LifetimeMean()  << ' '
+             << data->LifetimeError() << '\t'
              << data->NEvents()
              << endl;
 
@@ -119,7 +128,9 @@ void ParticleLifetime::update( const Event& ev ) {
 // create particle structs
 void ParticleLifetime::PCreate( const std::string& name,
                                 double mass_min, double mass_max,
-                                double time_min, double time_max ){
+                                double time_min, double time_max,
+                                double scan_min, double scan_max,
+                                double scan_step ){
     
     std::string title = "time_" + name;
     // convert string for histogram title
@@ -128,7 +139,8 @@ void ParticleLifetime::PCreate( const std::string& name,
     // create particle struct and set contents
     Particle* part = new Particle;
     part->name = name;
-    part->data = new LifetimeFit( mass_min, mass_max );
+    part->data = new LifetimeFit( mass_min, mass_max, time_min, time_max,
+                                  scan_min, scan_max, scan_step );
     part->hist = new TH1F( hist_name, hist_name, 100, time_min, time_max );
 
     p_list.push_back( part );
