@@ -1,6 +1,7 @@
 #include "ParticleMass.h"
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <string>
 
@@ -54,10 +55,12 @@ void ParticleMass::BeginJob() {
 
     // create list of particles
     p_list.reserve( 2 );
-    // K0
-    PCreate( "K0"     , 0.495, 0.500 );
-    // Lambda0
-    PCreate( "Lambda0", 1.115, 1.116 );
+    ifstream file( aInfo->value( "ranges" ).c_str() );
+    string name;
+    double mass_min;
+    float mass_max;
+    while ( file >> name >> mass_min >> mass_max ) PCreate( name, mass_min, mass_max );
+    
 
     return;
 
@@ -119,7 +122,7 @@ void ParticleMass::update( const Event& ev ) {
 }
 
 // create particle structs
-void ParticleMass::PCreate( const std::string& name, double min_mass, double max_mass ){
+void ParticleMass::PCreate( const std::string& name, double mass_min, double mass_max ){
     
     std::string title = "mass_" + name;
     // convert string for histogram title
@@ -128,8 +131,8 @@ void ParticleMass::PCreate( const std::string& name, double min_mass, double max
     // create particle struct and set contents
     Particle* part = new Particle;
     part->name = name;
-    part->data = new MassMean( min_mass, max_mass );
-    part->hist = new TH1F( hist_name, hist_name, 100, min_mass, max_mass );
+    part->data = new MassMean( mass_min, mass_max );
+    part->hist = new TH1F( hist_name, hist_name, 100, mass_min, mass_max );
 
     p_list.push_back( part );
 

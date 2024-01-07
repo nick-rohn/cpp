@@ -42,7 +42,7 @@ class ParticleMass: public AnalysisSteering,
         std::vector<Particle*> p_list;
 
         // create particle structs
-        void PCreate( const std::string& name, double min_mass, double max_mass );
+        void PCreate( const std::string& name, double mass_min, double mass_max );
 
 };
 
