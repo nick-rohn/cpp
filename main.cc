@@ -5,7 +5,6 @@
 #include "SourceFactory.h"
 #include "AnalysisSteering.h"
 #include "AnalysisFactory.h"
-#include "Event.h"
 
 using namespace std;
 
