@@ -14,6 +14,7 @@
 #include "AnalysisFactory.h"
 #include "ProperTime.h"
 #include "util/include/ActiveObserver.h"
+#include "util/include/TFileProxy.h"
 
 using namespace std;
 
@@ -69,7 +70,7 @@ void ParticleLifetime::EndJob() {
     // save current working area
     TDirectory* currentDir = gDirectory;
     // open histogram file
-    TFile* file = new TFile( aInfo->value( "time" ).c_str(), "RECREATE" );
+    TFileProxy* file = new TFileProxy( aInfo->value( "time" ).c_str(), "RECREATE" );
 
     cout << endl;
     // loop over elements

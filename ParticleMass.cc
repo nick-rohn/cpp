@@ -12,8 +12,9 @@
 #include "AnalysisSteering.h"
 #include "AnalysisInfo.h"
 #include "AnalysisFactory.h"
-#include "util/include/ActiveObserver.h"
 #include "ParticleReco.h"
+#include "util/include/ActiveObserver.h"
+#include "util/include/TFileProxy.h"
 
 using namespace std;
 
@@ -69,7 +70,7 @@ void ParticleMass::EndJob() {
     // save current working area
     TDirectory* currentDir = gDirectory;
     // open histogram file
-    TFile* file = new TFile( aInfo->value( "plot" ).c_str(), "RECREATE" );
+    TFileProxy* file = new TFileProxy( aInfo->value( "plot" ).c_str(), "RECREATE" );
 
     cout << endl;
     // loop over elements
