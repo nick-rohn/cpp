@@ -4,8 +4,8 @@
 #include <vector>
 #include <string>
 
-#include "AnalysisSteering.h"
-#include "AnalysisInfo.h"
+#include "AnalysisFramework/AnalysisSteering.h"
+#include "AnalysisFramework/AnalysisInfo.h"
 #include "util/include/ActiveObserver.h"
 
 class LifetimeFit;

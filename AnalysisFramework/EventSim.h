@@ -5,7 +5,7 @@
 #include <cmath>
 #include <cstdlib>
 
-#include "EventSource.h"
+#include "AnalysisFramework/EventSource.h"
 
 class Event;
 

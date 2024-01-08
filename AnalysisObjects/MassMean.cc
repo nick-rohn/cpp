@@ -1,9 +1,9 @@
-#include "MassMean.h"
+#include "AnalysisObjects/MassMean.h"
 
 #include <cmath>
 
-#include "Event.h"
-#include "ParticleReco.h"
+#include "AnalysisFramework/Event.h"
+#include "AnalysisObjects/ParticleReco.h"
 
 // constructor
 MassMean::MassMean( double min, double max ):

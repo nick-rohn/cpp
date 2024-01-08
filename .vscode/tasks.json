@@ -8,15 +8,17 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "-Wall",
-                "-I.",
-                "`root-config --cflags`",
-                "-o",
-                "${fileDirname}/main",
-                "*.cc",
+                "-I", "${workspaceFolder}",
+                "-o", "${workspaceFolder}/main",
+                "dum.cc",
+                "-L", "${workspaceFolder}", "-Wl,--no-as-needed",
+                "-lAnalysisFramework", "-lAnalysisObjects",
+                "-lAnalysisUtilities", "-lEventDump", "-lParticleMass", 
+                "-lParticleLifetime",
                 "`root-config --libs`"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceRoot}"
             },
             "problemMatcher": [
                 "$gcc"

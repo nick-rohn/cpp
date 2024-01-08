@@ -1,11 +1,11 @@
-#include "EventDump.h"
+#include "AnalysisPlugins/EventDump.h"
 
 #include <iostream>
 
-#include "Event.h"
-#include "AnalysisFactory.h"
-#include "AnalysisSteering.h"
-#include "AnalysisInfo.h"
+#include "AnalysisFramework/Event.h"
+#include "AnalysisFramework/AnalysisFactory.h"
+#include "AnalysisFramework/AnalysisSteering.h"
+#include "AnalysisFramework/AnalysisInfo.h"
 #include "util/include/ActiveObserver.h"
 
 using namespace std;

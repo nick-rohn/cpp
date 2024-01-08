@@ -1,4 +1,4 @@
-#include "ParticleMass.h"
+#include "AnalysisPlugins/ParticleMass.h"
 
 #include <iostream>
 #include <fstream>
@@ -8,12 +8,12 @@
 #include "TH1F.h"
 #include "TFile.h"
 
-#include "Event.h"
-#include "MassMean.h"
-#include "AnalysisSteering.h"
-#include "AnalysisInfo.h"
-#include "AnalysisFactory.h"
-#include "ParticleReco.h"
+#include "AnalysisFramework/Event.h"
+#include "AnalysisFramework/AnalysisSteering.h"
+#include "AnalysisFramework/AnalysisInfo.h"
+#include "AnalysisFramework/AnalysisFactory.h"
+#include "AnalysisObjects/MassMean.h"
+#include "AnalysisObjects/ParticleReco.h"
 #include "util/include/ActiveObserver.h"
 #include "util/include/TFileProxy.h"
 

@@ -1,4 +1,7 @@
-#include "AnalysisSteering.h"
+#include "AnalysisFramework/AnalysisSteering.h"
+
+#include "AnalysisFramework/AnalysisInfo.h"
+#include "util/include/ActiveObserver.h"
 
 AnalysisSteering::AnalysisSteering( const AnalysisInfo* info ):
     aInfo( info ) {
